@@ -1,0 +1,13 @@
+.home{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+}
+.home-header{
+    background-image: url(../img/header.jpg);
+    color: white !important;
+    display: flex;
+}
