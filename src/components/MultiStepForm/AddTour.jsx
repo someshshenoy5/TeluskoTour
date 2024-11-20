@@ -27,8 +27,13 @@ const AddTour = () => {
       <h3
         style={{
           textAlign: "center",
-          color: "green",
-          textDecoration: "underline",
+          color: "wheat",
+          padding: "1rem",
+          background: "darkslategray",
+          borderRadius: "0.5rem",
+          boxShadow: "0 0 10px #ccc",
+          margin: "1rem",
+          // padding: "2rem",
         }}
       >
         Welcome to Telusko Tour

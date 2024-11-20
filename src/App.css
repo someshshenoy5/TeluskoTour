@@ -1,9 +1,4 @@
-/* #root {
-  max-width: 100dvw;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
+
 
 .logo {
   height: 6em;
@@ -18,14 +13,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
@@ -39,4 +26,15 @@
 
 .read-the-docs {
   color: #888;
+}
+.StepButton{
+  /* background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

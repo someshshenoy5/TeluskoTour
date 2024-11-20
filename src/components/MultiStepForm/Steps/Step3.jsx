@@ -57,9 +57,9 @@ const Step3 = () => {
           fullWidth
           multiline
           rows={4}
-          value={userData["transportDescription"]}
+          value={userData["transportdescription"]}
           onChange={(e) =>
-            setUserData({ ...userData, transportDescription: e.target.value })
+            setUserData({ ...userData, transportdescription: e.target.value })
           }
         />
       </div>

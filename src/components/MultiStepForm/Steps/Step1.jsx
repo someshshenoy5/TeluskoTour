@@ -12,6 +12,11 @@ const Step1 = () => {
           margin="normal"
           variant="outlined"
           color="secondary"
+          Input={{
+            style: {
+              color: 'white',
+            },
+          }}
           fullWidth
           value={userData["fromLocation"]}
           onChange={(e) =>
@@ -25,10 +30,25 @@ const Step1 = () => {
           margin="normal"
           variant="outlined"
           color="secondary"
+          
           fullWidth
           value={userData["toLocation"]}
           onChange={(e) =>
             setUserData({ ...userData, toLocation: e.target.value })
+          }
+        />
+      </div>
+      <div>
+        <TextField
+          label="Country"
+          margin="normal"
+          variant="outlined"
+          color="secondary"
+          
+          fullWidth
+          value={userData["country"]}
+          onChange={(e) =>
+            setUserData({ ...userData, country: e.target.value })
           }
         />
       </div>
@@ -72,9 +92,10 @@ const Step1 = () => {
           }
         />
       </div>
-      <div>
+      <div className="StepButton">
         <Button
           variant="contained"
+          size="large"
           onClick={() => setCurrentStep(2)}
           color="primary"
         >

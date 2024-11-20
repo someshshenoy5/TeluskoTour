@@ -1,26 +1,43 @@
-
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, TextField, Input } from "@mui/material";
-import { multiStepContext} from "../../../Context/StepContext";
+import { multiStepContext } from "../../../Context/StepContext";
 import Grid from "@mui/material/Grid2";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
-import { InputAdornment } from "@mui/material";
+// import { InputAdornment } from "@mui/material";
 
 const Step4 = () => {
   const { setCurrentStep, userData, setUserData, submitData } =
     useContext(multiStepContext);
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+
+  const handleImageChange1 = (e) => {
+    setImage1(e.target.files);
+  };
+  const handleImageChange2 = (e) => {
+    setImage2(e.target.files);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await submitData(e, image1, image2);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+
+    // const VisuallyHiddenInput = styled("input")({
+    //   clip: "rect(0 0 0 0)",
+    //   clipPath: "inset(50%)",
+    //   height: 1,
+    //   overflow: "hidden",
+    //   position: "absolute",
+    //   bottom: 0,
+    //   left: 0,
+    //   whiteSpace: "nowrap",
+    //   width: 1,
+    // });
+  };
   return (
     <Grid>
       <Grid container columns={20} spacing={2} alignItems="center">
@@ -85,8 +102,7 @@ const Step4 = () => {
             r
             variant="outlined"
             color="secondary"
-            type="number" 
-            
+            type="number"
             fullWidth
             value={userData["ticketsAvailable"]}
             onChange={(e) =>
@@ -94,8 +110,7 @@ const Step4 = () => {
                 ...userData,
                 ticketsAvailable: parseInt(e.target.value),
               })
-            } 
-
+            }
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -119,7 +134,7 @@ const Step4 = () => {
           startAdornment={<InputAdornment position="start">₹</InputAdornment>}
         /> */}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
             label="Tour Images"
             margin="normal"
@@ -134,8 +149,8 @@ const Step4 = () => {
               })
             }
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        </Grid> */}
+        {/* <Grid item xs={12} sm={6}>
           <Button
             component="label"
             role={undefined}
@@ -150,6 +165,24 @@ const Step4 = () => {
               multiple
             />
           </Button>
+        </Grid> */}
+        <Grid item xs={12} sm={6}>
+          <input
+            type="file"
+            onChange={handleImageChange1}
+            accept="image/*"
+            multiple
+            style={{ display: "block", marginTop: "16px" }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <input
+            type="file"
+            onChange={handleImageChange2}
+            accept="image/*"
+            multiple
+            style={{ display: "block", marginTop: "16px" }}
+          />
         </Grid>
         <Grid item xs={12} sm={6} size={25}>
           <TextField
@@ -243,7 +276,7 @@ const Step4 = () => {
             Back
           </Button>
           <span> </span>
-          <Button variant="contained" onClick={submitData} color="primary">
+          <Button variant="contained" onClick={handleSubmit} color="primary">
             Submit
           </Button>
         </div>
