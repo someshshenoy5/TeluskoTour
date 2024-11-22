@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -16,19 +15,16 @@ const TourDetailPage = () => {
   });
 
   const [updatedTour, setUpdatedTour] = useState(tour);
-  
 
-  // const handleEdit = (field, value) => {
-  //   setUpdatedTour({ ...updatedTour, [field]: value });
-  // };
- 
+  const imagePaths = updatedTour.tourImages.map((image, index) => {
+    return `../../public/Tour-Images/${image}`;
+  });
   const handleEdit = (field, value) => {
-    console.log(`Editing field: ${field}, New Value: ${value}`);
     setUpdatedTour(prevTour => ({
       ...prevTour,
       [field]: value,
     }));
-    console.log('Updated Tour:', updatedTour);
+
   };
 
   const toggleEdit = (section) => {
@@ -37,58 +33,28 @@ const TourDetailPage = () => {
       [section]: !prev[section],
     }));
   };
-  // const handleEdit = (field, value) => {
-  //   setUpdatedTour((prevTour) => ({
-  //     ...prevTour,
-  //     location: {
-  //       ...prevTour.location,
-  //       [field]: value,
-  //     },
-  //   }));
-  // };
-
-  // const handleSave = async (section) => {
-  //   console.log("Location data:", updatedTour.location);
-
-  //   try {
-  //     const endpoint =
-  //       section === "tour"
-  //         ? `http://localhost:8080/api/tours/${updatedTour.id}`
-  //         : `http://localhost:8080/${section}s/${updatedTour.location.id}`;
-
-  //     const dataToUpdate =
-  //       section === "tour" ? updatedTour : updatedTour[section];
-
-  //     await axios.put(endpoint, dataToUpdate);
-  //     toggleEdit(section);
-  //   } catch (error) {
-  //     console.log(`updated ${section}:`, dataToUpdate);
-  //     console.error(`Error updating ${section}:`, error);
-  //   }
-  // };
 
   const handleSave = async (section) => {
     let endpoint;
     let dataToUpdate;
-  
+
     try {
       // Determine the endpoint and the data to update based on the section
       if (section === 'tour') {
         endpoint = `http://localhost:8080/api/tours/${updatedTour.id}`;
-        dataToUpdate = updatedTour; 
-      } 
+        dataToUpdate = updatedTour;
+      }
       else {
-        
         endpoint = `http://localhost:8080/${section}s/${updatedTour[section].id}`;
-        dataToUpdate = updatedTour[section]; // Update the specific section
+        dataToUpdate = updatedTour[section];
       }
 
-      // Make the PUT request to update the data
       await axios.put(endpoint, dataToUpdate);
-      toggleEdit(section); 
+      toggleEdit(section);
+      alert(`Updated ${section} successfully!`);
     } catch (error) {
-      // console.error(`Error updating ${section}:`, error);
-      
+      console.error(`Error updating ${section}:`, error);
+
     }
   };
 
@@ -98,6 +64,7 @@ const TourDetailPage = () => {
 
   return (
     <div className="tour-detail">
+
       {/* Header Section */}
       <div className="tour-header">
         <div className="header-content">
@@ -133,7 +100,7 @@ const TourDetailPage = () => {
               </div>
             )}
             <button className="edit-button" onClick={() => toggleEdit("tour")}>
-              {editingSections.tour ? "💾" : "✎"}
+              {editingSections.tour ? "❌" : "✎"}
             </button>
           </div>
           {editingSections.tour ? (
@@ -152,6 +119,13 @@ const TourDetailPage = () => {
           )}
         </div>
       </div>
+      <div className="card-content">
+            <div className="image-gallery">
+              {imagePaths.map((imagePath, index) => (
+                <img key={index} src={imagePath} alt={`Tour Image ${index + 1}`} />
+              ))}
+            </div>
+          </div>
 
       <div className="details-grid">
         {/* Display Tour Guide */}
@@ -213,7 +187,7 @@ const TourDetailPage = () => {
         </div>
 
         {/* Display Tour Images */}
-        <div className="detail-card">
+        {/* <div className="detail-card">
           <div className="card-header">
             <h3>Tour Images</h3>
           </div>
@@ -224,7 +198,7 @@ const TourDetailPage = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Location Card */}
         <div className="detail-card">
@@ -234,7 +208,7 @@ const TourDetailPage = () => {
               className="edit-button"
               onClick={() => toggleEdit("location")}
             >
-              {editingSections.location ? "💾" : "✎"}
+              {editingSections.location ? "❌" : "✎"}
             </button>
           </div>
           <div className="card-content">
@@ -246,7 +220,7 @@ const TourDetailPage = () => {
                   value={updatedTour.location.country}
                   onChange={(e) =>
                     handleEdit("location", {
-                      ...updatedTour.country,
+                      ...updatedTour.location,
                       country: e.target.value,
                     })
                   }
@@ -362,7 +336,7 @@ const TourDetailPage = () => {
               className="edit-button"
               onClick={() => toggleEdit("lodging")}
             >
-              {editingSections.lodging ? "💾" : "✎"}
+              {editingSections.lodging ? "❌" : "✎"}
             </button>
           </div>
           <div className="card-content">
@@ -456,7 +430,7 @@ const TourDetailPage = () => {
               className="edit-button"
               onClick={() => toggleEdit("transport")}
             >
-              {editingSections.transport ? "💾" : "✎"}
+              {editingSections.transport ? "❌" : "✎"}
             </button>
           </div>
           <div className="card-content">

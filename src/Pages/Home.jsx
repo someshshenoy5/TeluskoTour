@@ -5,10 +5,9 @@ import ToursPage from "./TourDetailPage";
 import TourCard from "../components/TourCard";
 import { useFetchTours } from "../hooks/useFetchTours";
 
-
 const Home = () => {
   const navigate = useNavigate();
-  const {tours,loading,error} = useFetchTours()
+  const { tours, loading, error } = useFetchTours();
   const handleClick = () => {
     navigate("/AddTour");
   };
@@ -68,10 +67,9 @@ const Home = () => {
         </button>
       </form>
       <div className="tour-container">
-      {tours.map((tour) => (
-        <TourCard key={tour.id} tour={tour} />
-        
-      ))}
+        {tours.map((tour) => (
+          <TourCard key={tour.id} tour={tour} />
+        ))}
       </div>
     </div>
   );

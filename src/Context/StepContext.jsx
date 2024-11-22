@@ -33,6 +33,7 @@ const StepContext = () => {
     transportDescription: "",
   });
   const [finalData, setFinalData] = useState([]);
+  
 
   const submitData = async (e,image1,image2) => {
     e.preventDefault();
